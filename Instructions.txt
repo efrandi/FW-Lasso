@@ -1,0 +1,51 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% FW-LASSO: INSTRUCTIONS FOR USE %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+This readme file provides basic instructions to use the code as done in the paper
+
+Frandi E., Nanculef R., Lodi S., Sartori C., Suykens J.A.K., "Fast and Scalable Lasso via Stochastic Frank-Wolfe Methods with a Convergence Guarantee", Internal Report 15-93, ESAT-STADIUS, KU Leuven, 2015. 
+
+
+INSTALLING THE PACKAGE 
+
+clone or download the GitHub repository and run the “make all” command in the “FW-Lasso” directory from the command line. Requires a working C/C++ compiler (e.g. gcc).
+
+
+RUNNING THE ALGORITHM
+
+The basic working example of how to build a regularization path (100 parameter values) for a Lasso problem 
+
+min 0.5*||X*alpha - y||^2 s.t. ||alpha||_1 <= delta
+
+is provided below:
+
+./lasso-train -E 1 -FM 10000 -RS 1 -SC 1 -e 0.001 -RM <delta_max/100> -RX <delta_max> -m <cache_size> -a <sampling_size> -BW 1 -AH 1 <dataset_path>/<dataset_name.txt>
+
+Input: 
+
+- delta_max is the maximum value of the constraint/regularization parameter
+
+- cache_size is expressed in MB (e.g. -m 2000 allows a maximum of ~2GB)
+
+- sampling_size should be an integer (e.g. -a 5000 samples 5000 features at each iteration)
+
+Output:
+
+- a SUMMARY file with various statistics for the current run
+
+- a RESULTS file with the solutions (in sparse format) for each value of the parameter along the path: 1st column -> current value of delta; 2nd column -> # of active features; 3rd column -> l1-norm of solution (un-normalized); 4th column -> l1-norm of solution (normalized); 5th column -> objective value; 0:<val_0> -> intercept value; 1:<val_1> … p:<val_p> -> coefficients for features 1 … p. 
+
+
+NOTES
+
+- Running the command “lasso-train” without any input gives a more detailed overview of the available options.
+
+- The dataset files have to be stored in the LIBSVM sparse format (see http://www.csie.ntu.edu.tw/~cjlin/libsvm/):
+
+<label/response> <index1>:<value1> <index2>:<value2> ... <indexN>:<valueN>
+
+This design choice is motivated by the fact that the code is tailored to solve large-scale problems.
+
+- For any additional information or question, just drop a mail at: efrandi@esat.kuleuven.be
