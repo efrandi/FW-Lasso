@@ -21,13 +21,11 @@ min 0.5*||X*alpha - y||^2 s.t. ||alpha||_1 <= delta
 
 is provided below:
 
-./lasso-train -E 1 -FM 10000 -RS 1 -SC 1 -e 0.001 -RM <delta_max/100> -RX <delta_max> -m <cache_size> -a <sampling_size> -BW 1 -AH 1 <dataset_path>/<dataset_name.txt>
+./lasso-train -E 1 -FM 10000 -RS 1 -SC 1 -e 0.001 -RM <delta_max/100> -RX <delta_max> -a <sampling_size> -BW 1 -AH 1 <dataset_path>/<dataset_name.txt>
 
 Input: 
 
 - delta_max is the maximum value of the constraint/regularization parameter
-
-- cache_size is expressed in MB (e.g. -m 2000 allows a maximum of ~2GB)
 
 - sampling_size should be an integer (e.g. -a 5000 samples 5000 features at each iteration)
 
